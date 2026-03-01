@@ -4,19 +4,12 @@ import zipfile
 from pathlib import Path
 from urllib.parse import quote
 
-import sentry_sdk
 import fitz  # pymupdf
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.responses import HTMLResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from pdf_extract import extract_all
-
-sentry_sdk.init(
-    dsn=os.environ.get("GLITCHTIP_DSN", ""),
-    traces_sample_rate=0.1,
-    send_default_pii=False,
-)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -142,14 +135,14 @@ HTML_FORM = """
 """
 
 
-UMAMI_HOST = os.environ.get("UMAMI_HOST", "")
-UMAMI_WEBSITE_ID = os.environ.get("UMAMI_WEBSITE_ID", "")
+RYBBIT_HOST = os.environ.get("RYBBIT_HOST", "")
+RYBBIT_SITE_ID = os.environ.get("RYBBIT_SITE_ID", "")
 
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
-    if UMAMI_HOST and UMAMI_WEBSITE_ID:
-        tag = f'<script defer src="https://{UMAMI_HOST}/script.js" data-website-id="{UMAMI_WEBSITE_ID}"></script>'
+    if RYBBIT_HOST and RYBBIT_SITE_ID:
+        tag = f'<script src="https://{RYBBIT_HOST}/api/script.js" data-site-id="{RYBBIT_SITE_ID}"></script>'
     else:
         tag = ""
     return HTML_FORM.replace("{analytics_tag}", tag)

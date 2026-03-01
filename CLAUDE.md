@@ -36,11 +36,10 @@ Production: `uvicorn main:app --host 0.0.0.0 --port 8000` (see Procfile)
 
 | Variable | Purpose | Required |
 |---|---|---|
-| `UMAMI_HOST` | Umami analytics hostname (e.g. `analytics.example.com`) | No — analytics disabled when unset |
-| `UMAMI_WEBSITE_ID` | Umami website ID | No — analytics disabled when unset |
-| `GLITCHTIP_DSN` | GlitchTip/Sentry DSN for error monitoring | No — monitoring disabled when unset |
+| `RYBBIT_HOST` | Rybbit analytics hostname (e.g. `analytics.example.com`) | No — analytics/error tracking disabled when unset |
+| `RYBBIT_SITE_ID` | Rybbit site ID | No — analytics/error tracking disabled when unset |
 
-Set these on your hosting platform (e.g. Railway Variables). No analytics or error monitoring runs locally unless you set them.
+Set these on your hosting platform (e.g. Railway Variables). No analytics or error tracking runs locally unless you set them.
 
 ## Conventions
 
